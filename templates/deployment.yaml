@@ -25,9 +25,13 @@ spec:
             {{- toYaml .Values.keycloak.env | nindent 12 }}
           ports:
             {{- toYaml .Values.keycloak.ports | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.keycloak.readinessProbe | nindent 12 }}
           volumeMounts:
             {{- toYaml .Values.keycloak.volumeMounts | nindent 12}}
+          {{- if .Values.keycloak.image.pullPolicy}}
           imagePullPolicy: {{ .Values.keycloak.image.pullPolicy }}
+          {{-- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
