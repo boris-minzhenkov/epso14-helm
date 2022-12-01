@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ .Values.keycloak.service.name }}
   labels: 
-    {{ toYaml .Values.keycloak.service.labels . | nindent 4 }}
+    {{ toYaml .Values.keycloak.service.labels | nindent 4 }}
 spec:
   ports:
-  {{ toYaml .Values.keycloak.service.ports . | nindent 2 }}
+  {{ toYaml .Values.keycloak.service.ports | nindent 2 }}
   selector: 
-    {{ toYaml .Values.keycloak.service.labels . | nindent 4 }}
+    {{ toYaml .Values.keycloak.service.labels | nindent 4 }}
   type: {{ .Values.keycloak.service.type }}
