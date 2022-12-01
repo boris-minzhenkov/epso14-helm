@@ -1,8 +1,5 @@
 # Default values for epso14-helm.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 fullname: keycloak
-#CHANGEME
 labels:
   app: keycloak
 #autoscaling.enable: false
@@ -41,17 +38,24 @@ keycloak:
     mountPath: "/etc/x509/https"
     readOnly: true
 
+  service:
+    name: keycloak
+    labels:
+      app: keycloak
+    ports: 
+    - name: http
+      port: 8080
+      targetPort: 8080
+    - name: https
+      port: 8443
+      targetPort: 8443
+    type: LoadBalancer
+
+  #TODO: SECRET SHOULD BE MOVED TO KEY VAULT
+  secret:
+    secretName: tls-keys
+
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
 autoscaling:
   enabled: false
