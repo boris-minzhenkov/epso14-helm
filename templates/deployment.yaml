@@ -19,7 +19,7 @@ spec:
       containers:
         - name: {{ .Values.keycloak.name }}
           image: "{{ .Values.keycloak.image.repository }}:{{ .Values.keycloak.image.tag }}"
-          {{- if .Values.keycloak.image.pullPolicy}}
+          {{- if .Values.keycloak.image.pullPolicy }}
           imagePullPolicy: {{ .Values.keycloak.image.pullPolicy }}
           {{- end }}
           args:

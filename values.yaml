@@ -70,4 +70,3 @@ volumes:
   - name: tls-keys
     secret:
       secretName: tls-keys
-
