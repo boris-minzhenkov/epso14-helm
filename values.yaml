@@ -65,3 +65,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes:
+  - name: tls-keys
+    secret:
+      secretName: tls-keys
+

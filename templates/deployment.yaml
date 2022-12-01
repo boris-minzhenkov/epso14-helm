@@ -10,15 +10,16 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "epso14-helm.selectorLabels" . | nindent 6 }}
+      {{- toYaml .Values.labels | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "epso14-helm.selectorLabels" . | nindent 8 }}
+        {{- toYaml .Values.labels | nindent 8 }}
     spec:
       containers:
         - name: {{ .Values.keycloak.name }}
           image: "{{ .Values.keycloak.image.repository }}:{{ .Values.keycloak.image.tag }}"
+          imagePullPolicy: {{ .Values.keycloak.image.pullPolicy }}
           args:
             {{- toYaml .Values.keycloak.args | nindent 12 }}
           env:
@@ -30,10 +31,11 @@ spec:
           volumeMounts:
             {{- toYaml .Values.keycloak.volumeMounts | nindent 12}}
           {{- if .Values.keycloak.image.pullPolicy}}
-          imagePullPolicy: {{ .Values.keycloak.image.pullPolicy }}
           {{-- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        volumes:
+          {{- toYaml .Values.volumes | nindent 10 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -46,3 +48,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
