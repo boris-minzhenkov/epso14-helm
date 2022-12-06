@@ -90,7 +90,7 @@ env:
 # You can override these at install time with
 # helm install openldap --set openldap.adminPassword=<passwd>,openldap.configPassword=<passwd>
 adminPassword: admin
-configPassword: config
+configPassword: admin
 
 # Custom openldap configuration files used to override default settings
 # customLdifFiles:
