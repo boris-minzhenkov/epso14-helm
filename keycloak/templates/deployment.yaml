@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.fullname }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- toYaml .Values.labels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .Values.labels | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.keycloak.name }}
+        image: "{{ .Values.keycloak.image.repository }}:{{ .Values.keycloak.image.tag }}"
+        {{- if .Values.keycloak.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.keycloak.image.pullPolicy }}
+        {{- end }}
+        args:
+          {{- toYaml .Values.keycloak.args | nindent 10 }}
+        env:
+          {{- toYaml .Values.keycloak.env | nindent 10 }}
+        ports:
+          {{- toYaml .Values.keycloak.ports | nindent 10 }}
+        readinessProbe:
+          {{- toYaml .Values.keycloak.readinessProbe | nindent 10 }}
+        volumeMounts:
+          {{- toYaml .Values.keycloak.volumeMounts | nindent 10}}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+      volumes:
+        {{- toYaml .Values.volumes | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
