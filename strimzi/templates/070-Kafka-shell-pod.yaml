@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Pod
+metadata:
+  name: {{ .Values.kafkaClientShell.fullname }}
+spec:
+  containers:
+  - name: {{ .Values.kafkaClientShell.name }}
+    image: "{{ .Values.kafkaClientShell.image.repository }}:{{ .Values.kafkaClientShell.image.tag }}"
+    command: {{ .Values.kafkaClientShell.command }}
+    args:
+      {{- toYaml .Values.kafkaClientShell.args | nindent 4 }}
+    env:
+      {{- toYaml .Values.kafkaClientShell.env | nindent 4 }}
+    volumeMounts:
+      {{- toYaml .Values.kafkaClientShell.volumeMounts | nindent 4 }}
+  volumes:
+    {{- toYaml .Values.volumes | nindent 2 }}
