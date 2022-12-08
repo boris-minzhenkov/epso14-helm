@@ -164,8 +164,8 @@ kafkaClientShell:
   args: [ "-c", 'for((i=0;;i+=1)); do echo "Up time: $i min" && sleep 60; done' ]
   env: 
   - name: CLASSPATH
-    value: /opt/kafka/libs/kafka-oauth-client-*:/opt/kafka/libs/kafka-oauth-common-*
-    - name: OAUTH_TOKEN_ENDPOINT_URI
+    value: "/opt/kafka/libs/kafka-oauth-client-*:/opt/kafka/libs/kafka-oauth-common-*"
+  - name: OAUTH_TOKEN_ENDPOINT_URI
     value: https://keycloak:8443/auth/realms/kafka-authz/protocol/openid-connect/token
   volumeMounts:
     - name: truststore
