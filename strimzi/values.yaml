@@ -159,7 +159,7 @@ kafkaClientShell:
     secretName: kafka-client-truststore
   image:
     repository: quay.io/strimzi/kafka
-    image.tag: 0.26.0-kafka-2.8.1
+    tag: 0.26.0-kafka-2.8.1
   command: ["/bin/bash"]
   args: [ "-c", 'for((i=0;;i+=1)); do echo "Up time: $i min" && sleep 60; done' ]
   env: 
