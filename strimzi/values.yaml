@@ -173,5 +173,5 @@ kafkaClientShell:
       readOnly: true
 volumes:
 - name: truststore
-    secret:
-      secretName: kafka-client-truststore    
+  secret:
+    secretName: kafka-client-truststore    
